@@ -136,7 +136,7 @@ void * popCurrent(List * list) {
 
     free(list->current);
 
-    list->current = NULL;
+    list->current = (aux2 != NULL) ? aux2 : aux1;
     
     return dato;
 }
