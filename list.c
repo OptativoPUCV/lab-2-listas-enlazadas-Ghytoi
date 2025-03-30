@@ -114,7 +114,17 @@ void * popBack(List * list) {
 }
 
 void * popCurrent(List * list) {
-    return NULL;
+    if (list == NULL || list->current == NULL) return NULL;
+    void* dato = list->current->data;
+
+    Node *aux1 = list->current->prev;
+    Node *aux2 = list->current->next;
+
+    aux1->next = aux2;
+    aux2->prev = aux1;
+    
+    free(list->current);
+    return dato;
 }
 
 void cleanList(List * list) {
