@@ -120,28 +120,24 @@ void * popCurrent(List * list) {
     Node *aux1 = list->current->prev;
     Node *aux2 = list->current->next;
 
-    // Si el nodo a eliminar es la cabeza, actualizamos head
-    if (list->current == list->head) {
-        list->head = aux2;
-        if (aux2) aux2->prev = NULL; // Nuevo head no debe tener prev
-    } else {
+    if (list->current == list->head)
+    {
         aux1->next = aux2;
+        aux1->prev = NULL;
     }
-
-    // Si el nodo a eliminar es la cola, actualizamos tail
-    if (list->current == list->tail) {
-        list->tail = aux1;
-        if (aux1) aux1->next = NULL; // Nuevo tail no debe tener next
-    } else {
-        aux2->prev = aux1;
+    else aux1->prev = aux1;
+    
+    if (list->current == list->head)
+    {
+        aux1->next = NULL;
+        aux1->prev = aux1;
     }
+    else aux1->next = aux1;
 
-    // Liberamos la memoria del nodo eliminado
     free(list->current);
 
-    // Movemos current a un nodo válido
-    list->current = (aux2 != NULL) ? aux2 : aux1;
-
+    list->current = NULL;
+    
     return dato;
 }
 
