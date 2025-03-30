@@ -40,8 +40,8 @@ void * firstList(List * list) {
     if (list == NULL || list->head == NULL) {
         return NULL; 
     }
-    list->current = list->head;
-    return list->head;
+    list->current = 0;
+    return list->current;
 }
 
 void * nextList(List * list) {
