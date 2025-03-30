@@ -115,19 +115,36 @@ void * popBack(List * list) {
 
 void * popCurrent(List * list) {
     if (list == NULL || list->current == NULL) return NULL;
-    void* dato = list->current->data;
 
+    void* dato = list->current->data;
     Node *aux1 = list->current->prev;
     Node *aux2 = list->current->next;
 
-    aux1->next = aux2;
-    aux2->prev = aux1;
+    // Si el nodo a eliminar es la cabeza, actualizamos head
+    if (list->current == list->head) {
+        list->head = aux2;
+        if (aux2) aux2->prev = NULL; // Nuevo head no debe tener prev
+    } else {
+        aux1->next = aux2;
+    }
 
+    // Si el nodo a eliminar es la cola, actualizamos tail
+    if (list->current == list->tail) {
+        list->tail = aux1;
+        if (aux1) aux1->next = NULL; // Nuevo tail no debe tener next
+    } else {
+        aux2->prev = aux1;
+    }
+
+    // Liberamos la memoria del nodo eliminado
     free(list->current);
 
-    list->current = NULL;
+    // Movemos current a un nodo válido
+    list->current = (aux2 != NULL) ? aux2 : aux1;
+
     return dato;
 }
+
 
 void cleanList(List * list) {
     while (list->head != NULL) {
