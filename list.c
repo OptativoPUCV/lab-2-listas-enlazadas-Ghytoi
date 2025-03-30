@@ -125,7 +125,7 @@ void * popCurrent(List * list) {
 
     free(list->current);
 
-    list->current == NULL;
+    list->current = NULL;
     return dato;
 }
 
