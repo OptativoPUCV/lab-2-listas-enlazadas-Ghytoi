@@ -64,7 +64,7 @@ void * prevList(List * list) {
     if (list == NULL || list->current == NULL) {
         return NULL; 
     }
-    list->current = list->current--;
+    list->current--;
     return list->current;
 }
 
